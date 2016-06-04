@@ -18,20 +18,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    /*初始化UUID*/
+    // Initialize UUID
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"23A01AF0-232A-4518-9C0E-323FB773F5EF"];
     SBKBeaconID *beaconID = [SBKBeaconID beaconIDWithProximityUUID:uuid];
     
-    /*开始扫描*/
-    [[SBKBeaconManager sharedInstance] startRangingBeaconsWithID:beaconID
-                                               wakeUpApplication:NO];
-    /*申请权限*/
+    
+    // Request Location/Bluetooth permission
     [[SBKBeaconManager sharedInstance] requestAlwaysAuthorization];
     [self checkLocationServices];
     [self checkBluetoothServices];
     
     [SBKBeaconManager sharedInstance].delegate = self;
     
+    // Start ccanning
+    [[SBKBeaconManager sharedInstance] startRangingBeaconsWithID:beaconID
+                                               wakeUpApplication:NO];
     
     NSLog(@"view did load");
 }
@@ -42,15 +43,29 @@
 }
 
 - (void)beaconManager:(SBKBeaconManager *)beaconManager didRangeBeacons:(NSArray *)beacons inRegion:(SBKBeaconID *)region{
-    NSLog(@"beacon detected : %@", beacons);
+    //NSLog(@"beacon detected : %@", beacons);
 }
 
 - (void)beaconManager:(SBKBeaconManager *)beaconManager didRangeNewBeacon:(SBKBeacon *)beacon{
-    NSLog(@"new beacon detected : %@", beacon);
+    //NSLog(@"new beacon detected : %@", beacon);
 }
 
 - (void)beaconManager:(SBKBeaconManager *)beaconManager scanDidFinishWithBeacons:(NSArray *)beacons{
     NSLog(@"scan did finish with beacon %@", beacons);
+    
+    for (SBKBeacon *beacon in beacons)
+    {
+        NSLog(@"details of beacon -----");
+        
+        NSLog(@"serial number : %@", beacon.serialNumber);
+        
+        //bigger is nearer (signal strength)
+        NSLog(@"RSSI : %ld", (long)beacon.rssi);
+        
+        //smaller is nearer (accuracy/distance)
+        NSLog(@"Accuracy/Distance : %f", beacon.accuracy);
+    }
+    
 }
 
 -(BOOL)checkLocationServices
@@ -61,15 +76,15 @@
         self.locationManager.distanceFilter=100.0f;
     }
     
-    BOOL enable=[CLLocationManager locationServicesEnabled];//定位服务是否可用
+    BOOL enable=[CLLocationManager locationServicesEnabled];// check if location services enabled
     
-    int status=[CLLocationManager authorizationStatus];//是否具有定位权限
+    int status=[CLLocationManager authorizationStatus];//check if authorized for location
     
     if(!enable || status<3){
         if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-            [self.locationManager requestAlwaysAuthorization];//请求权限
+            [self.locationManager requestAlwaysAuthorization];//request permission
         }
-        return NO;//需求请求定位权限
+        return NO;
         
     }
     return YES;
@@ -90,7 +105,7 @@
 }
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central{
-    NSLog(@"because you asked?");
+    NSLog(@"bluetooth state updated");
 }
 
 
