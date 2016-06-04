@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SBKBeacon.h"
+#import "SBKBeaconManager.h"
+#import "SBKBeaconManager+Cloud.h"
+
 
 @interface ViewController : UIViewController
 
