@@ -1,8 +1,13 @@
-<ion-view title="Settings" id="page4" class=" ">
+<ion-view title="Settings" id="page4" class=" " ng-controller="settingsCtrl">
     <ion-content padding="true" class="has-header">
         <ion-list id="settings-list3" class=" ">
-            <ion-toggle toggle-class="toggle-energized" ng-checked="true" id="settings-toggle22" class=" ">Smart Sense</ion-toggle>
+            <ion-toggle toggle-class="toggle-energized" id="settings-toggle22" class=" " ng-model="setting.smartSense" 
+            ng-change="updateSetting()">Smart Sense</ion-toggle>
             <ion-item id="settings-list-item17" ui-sref="scenes" class="  ">Scenes</ion-item>
+            <ion-toggle toggle-class="toggle-energized" id="settings-toggle22" class=" " ng-model="setting.Expected"
+            ng-change="updateSetting()" >Expected</ion-toggle>
+            <ion-toggle toggle-class="toggle-energized" id="settings-toggle23" class=" " ng-model="setting.Reality"
+            ng-change="updateSetting()" >Reality</ion-toggle>
         </ion-list>
     </ion-content>
 </ion-view>
