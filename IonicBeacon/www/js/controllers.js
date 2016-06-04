@@ -1,12 +1,32 @@
 angular.module('app.controllers', [])
   
-.controller('devicesCtrl', function($scope,DataService) {
+.controller('devicesCtrl', function($scope,$http,DataService) {
 	$scope.$watch(function () { return DataService.getItems() }, function (newVal, oldVal) {
     if (typeof newVal !== 'undefined') {
         $scope.items = DataService.getItems();
     }
 });
-	
+	$scope.$watch('items', function(newVal, oldVal){
+		angular.forEach(newVal, function(value, key) {
+		  // console.log(value.child);
+		  angular.forEach(value.child, function(value2, key2) {
+		  		if(value2.pin !== 'undefined' && value2.model !== 'undefined'){
+		  			sendPOST(value2.pin, value2.model?1:0)
+		  		}
+		});
+		});
+}, true);
+	        
+	var sendPOST = function(pin, value){
+		console.log(pin + value)
+        var data = {
+        	value: value
+        }
+        $http.post("http://10.10.80.71:8080/gpio/"+pin, data).success(function(data, status) {
+            console.log(data)
+        })
+	}
+
 	console.log()
 })
    

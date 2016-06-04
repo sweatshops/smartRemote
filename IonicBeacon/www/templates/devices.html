@@ -6,7 +6,7 @@
         </div>
         <form id="devices-form1" class="list " ng-repeat="x in items">
             <ion-item class="{{x.class}}" id={{x.id}}  >{{x.text}}</ion-item>
-            <ion-toggle ng-repeat="y in x.child">
+            <ion-toggle ng-model="y.model" ng-repeat="y in x.child" >
              {{ y.text }}
             </ion-toggle> 
     <!-- <ion-toggle toggle-class="{{y.toggle-class}}" id="{{y.id}}" class=" " ng-repeat="y in item.child">{{y.text}}</ion-toggle> -->
