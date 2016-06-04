@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "SBKBeacon.h"
 #import "SBKBeaconManager.h"
 #import "SBKBeaconManager+Cloud.h"
 
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <SBKBeaconManagerDelegate, CLLocationManagerDelegate, CBCentralManagerDelegate>
 
+@property(strong, atomic) CLLocationManager *locationManager;
+@property(strong, atomic) CBCentralManager  *CM;
 
 @end
 
