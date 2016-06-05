@@ -27,6 +27,7 @@ var expectedItems = [{class:'item-divider item', id:'devices-list-item-divider1'
 	[{class:'', id:'devices-toggle4', model:false, 'toggle-class':'toggle-positive', text:'🌙 Night light'},
 	{class:'', id:'devices-toggle20', model:false, 'toggle-class':'toggle-positive', text:'💡 Balcony Light'}]}]
 
+
 var realityItems = [
 	{class:'item-divider item', id:'devices-list-item-divider1', model:false, 'toggle-class':'',text:'Attic', child:
 	[{class:'', id:'devices-toggle9', model:false, 'toggle-class':'toggle-positive', text:'Celling Light'}]},
@@ -51,13 +52,20 @@ var realityItems = [
 	{class:'', id:'devices-toggle9', model:false, 'toggle-class':'toggle-positive', text:'💡 Celling Light'}]},
 	{class:'item-divider item', id:'devices-list-item-divider2', model:false, 'toggle-class':'',text:'Bedroom', child:
 	[{class:'', id:'devices-toggle4', model:false, 'toggle-class':'toggle-positive', text:'🌙 Night light'},
-	{class:'', id:'devices-toggle20', model:false, 'toggle-class':'toggle-positive', text:'💡 Balcony Light'}]}
-	]	
+	{class:'', id:'devices-toggle20', model:false, 'toggle-class':'toggle-positive', text:'💡 Balcony Light'}]}]	
   
-  var demoItems = [{class:'item-divider item', id:'devices-list-item-divider1', model:false, 'toggle-class':'',text:'Bedroom', child:
+  var demoItems = [{class:'item-divider item', id:'devices-list-item-divider1', model:false, 'toggle-class':'',text:'Bedroom',room:'BEDROOM',child:
 	[{class:'', id:'devices-toggle8', model:devices.balconyLight, 'toggle-class':'toggle-positive', text:'💡 Balcony Light', pin:'11'},
 	{class:'', id:'devices-toggle9', model:devices.nightLight, 'toggle-class':'toggle-positive', text:'💡 Night Light', pin:'10'}]},
-	{class:'item-divider item', id:'devices-list-item-divider2', model:false, 'toggle-class':'',text:'Study Room', child:
+	{class:'item-divider item', id:'devices-list-item-divider2', model:false, 'toggle-class':'',text:'Study Room', room:'STUDY ROOM', child:
+	[{class:'', id:'devices-toggle4', model:devices.deskLamp, 'toggle-class':'toggle-positive', text:'💡 Desk Lamp', pin:'12'},
+	{class:'', id:'devices-toggle20', model:devices.ceilingLight, 'toggle-class':'toggle-positive', text:'💡 Ceiling Light', pin:'13'}]}]
+
+	var  bed = [{class:'item-divider item', id:'devices-list-item-divider1', model:false, 'toggle-class':'',text:'Bedroom',room:'BEDROOM',child:
+	[{class:'', id:'devices-toggle8', model:devices.balconyLight, 'toggle-class':'toggle-positive', text:'💡 Balcony Light', pin:'11'},
+	{class:'', id:'devices-toggle9', model:devices.nightLight, 'toggle-class':'toggle-positive', text:'💡 Night Light', pin:'10'}]}]
+
+	var study = [{class:'item-divider item', id:'devices-list-item-divider2', model:false, 'toggle-class':'',text:'Study Room', room:'STUDY ROOM', child:
 	[{class:'', id:'devices-toggle4', model:devices.deskLamp, 'toggle-class':'toggle-positive', text:'💡 Desk Lamp', pin:'12'},
 	{class:'', id:'devices-toggle20', model:devices.ceilingLight, 'toggle-class':'toggle-positive', text:'💡 Ceiling Light', pin:'13'}]}]
 
@@ -70,21 +78,23 @@ var realityItems = [
       return appSetting;
   };
 
-  var getRoom = function(){
-		  	  $http({
-		  method: 'GET',
-		  url: 'http://10.10.80.78:3000/room'
-		}).then(function successCallback(response) {
-		    return response.data.Room;
-		  }, function errorCallback(response) {
-		    return null;
-		  });	
-      
+var setRoom = function(newObj) {
+      currentRoom = newObj
   };
 
+  var getRoom = function(){
+      return currentRoom;
+  };
   var getItems = function(){
   	  if(appSetting.smartSense){
-  	  	return demoItems
+  	  	if(currentRoom == 'BEDROOM')
+  	  		return bed;
+  	  	else if(currentRoom == 'STUDY ROOM')
+  	  		return study;
+  	  	else{
+  	  		return demoItems
+  	  	}
+  	  	
   	  }
   	  else if(appSetting.Expected){
   	  	return expectedItems
@@ -96,7 +106,9 @@ var realityItems = [
 	return {
     setSetting: setSetting,
     getSetting: getSetting,
-    getItems: getItems
+    getItems: getItems,
+    getRoom: getRoom,
+    setRoom: setRoom
   };
 }]);
 
