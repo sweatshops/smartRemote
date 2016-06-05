@@ -17,7 +17,7 @@ angular.module('app.services', [])
   	deskLamp: false,
   	ceilingLight: false,
   }
-  
+
 	var currentRoom = null
 var expectedItems = [{class:'item-divider item', id:'devices-list-item-divider1', model:false, 'toggle-class':'',text:'Living Room', child:
 	[{class:'', id:'devices-toggle7', model:false, 'toggle-class':'toggle-positive', text:'📺 TV'},
@@ -73,7 +73,7 @@ var realityItems = [
   var getRoom = function(){
 		  	  $http({
 		  method: 'GET',
-		  url: '/someUrl'
+		  url: 'http://10.10.80.78:3000/room'
 		}).then(function successCallback(response) {
 		    return response.data.Room;
 		  }, function errorCallback(response) {

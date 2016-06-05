@@ -57,7 +57,7 @@ angular.module('app.controllers', [])
             	vtt: vtt
             }
             $scope.history.push(temp_history)
-		$http.post("http://localhost:9000/voiceText", data).success(function(data, status) {
+		$http.post("http://10.10.80.78:3000/voiceText", data).success(function(data, status) {
             console.log(data)
 
         })
