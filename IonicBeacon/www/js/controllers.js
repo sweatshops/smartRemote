@@ -32,13 +32,13 @@ angular.module('app.controllers', [])
         var data = {
         	value: value
         }
-        $http.post("http://10.10.80.90:8080/gpio/"+pin, data).success(function(data, status) {
+        $http.post("http://10.10.100.239:8080/gpio/"+pin, data).success(function(data, status) {
             console.log(data)
         })
 	}
 	var pastRoom;
 	var getRoom = function(){
-	$http.get("http://10.10.80.78:3000/room")
+	$http.get("http://10.10.100.238:3000/room")
     .then(function(response) {
         console.log(response.data.current_room.toUpperCase())
         DataService.setRoom(response.data.current_room.toUpperCase())
@@ -91,7 +91,7 @@ angular.module('app.controllers', [])
             	vtt: vtt
             }
             $scope.history.push(temp_history)
-		$http.post("http://10.10.80.78:3000/voiceText", data).success(function(data, status) {
+		$http.post("http://10.10.100.239:3000/voiceText", data).success(function(data, status) {
             console.log(data)
 
         })
