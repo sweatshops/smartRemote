@@ -62,7 +62,8 @@ angular.module('app.routes', [])
         
     .state('chat', {
       url: '/page5',
-      templateUrl: 'templates/chat.html'
+      templateUrl: 'templates/chat.html',
+      controller: 'chatCtrl'
     })
         
       

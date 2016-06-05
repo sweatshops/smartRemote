@@ -1,11 +1,20 @@
+<link href="lib/ionic/css/chat.css" rel="stylesheet">
 <ion-view title="Chat" id="page5" class=" " ng-controller="chatCtrl">
     <ion-content padding="true" class="has-header">
         <form id="chat-form4" class="list ">
-            <div class="spacer" style="width: 300px; height: 390px;"></div>
+        <div class="list"  style="height:300px">
+		  <a class="item" href="#" ng-repeat="x in history">
+		    {{x.vtt}}
+		  </a>
+
+		</div>
+            <!-- <div class="spacer" style="width: 300px; height: 390px;"></div> -->
             <label class="item item-input " id="chat-input2">
-                <input type="text" placeholder="">
+                <input type="text" ng-model="vtt" placeholder="">
             </label>
-            <a ui-sref="tabsController.devices" id="chat-button7" class=" button button-light  button-block ">BACK</a>
+            <a class="button button-positive icon ion-android-send" style="float: right" ng-click="sendVoiceText(vtt)"></a>
+            <a ui-sref="tabsController.devices" id="chat-button7" class=" button button-light button-block " >BACK</a>
+            
         </form>
     </ion-content>
 </ion-view>
