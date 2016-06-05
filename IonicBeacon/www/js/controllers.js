@@ -22,7 +22,7 @@ angular.module('app.controllers', [])
         var data = {
         	value: value
         }
-        $http.post("http://10.10.80.71:8080/gpio/"+pin, data).success(function(data, status) {
+        $http.post("http://10.10.80.90:8080/gpio/"+pin, data).success(function(data, status) {
             console.log(data)
         })
 	}
