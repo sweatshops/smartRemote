@@ -46,8 +46,23 @@ angular.module('app.controllers', [])
 	}
 })
       
-.controller('chatCtrl', function($scope,DataService) {
+.controller('chatCtrl', function($scope, $http) {
+	$scope.history = []
 
+	$scope.sendVoiceText = function(vtt){
+		var data = {
+			value: vtt
+		}
+		var temp_history = {
+            	vtt: vtt
+            }
+            $scope.history.push(temp_history)
+		$http.post("http://localhost:9000/voiceText", data).success(function(data, status) {
+            console.log(data)
+
+        })
+	}
+	
 })
    
 .controller('scenesCtrl', function($scope,DataService) {
