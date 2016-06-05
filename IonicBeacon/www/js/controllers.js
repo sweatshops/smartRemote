@@ -32,7 +32,7 @@ angular.module('app.controllers', [])
         var data = {
         	value: value
         }
-        $http.post("http://10.10.100.239:8080/gpio/"+pin, data).success(function(data, status) {
+        $http.post("http://10.10.101.0:8080/gpio/"+pin, data).success(function(data, status) {
             console.log(data)
         })
 	}
@@ -91,17 +91,11 @@ angular.module('app.controllers', [])
             	vtt: vtt
             }
             $scope.history.push(temp_history)
-		$http.post('http://10.10.100.239:3000/voiceText', 
-		  {
-		    headers: {'Content-Type': 'application/json'},
-		    data: data
-		  }
-		).success(function(data, status) {
-            console.log(data)
-
-        })
+		$http.get("http://10.10.100.239:3000/voiceText/"+vtt)
+    .then(function(response) {
+        console.log("success")
+    });
 	}
-	
 })
    
 .controller('scenesCtrl', function($scope,DataService) {
