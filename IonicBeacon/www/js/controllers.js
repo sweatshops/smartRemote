@@ -91,7 +91,12 @@ angular.module('app.controllers', [])
             	vtt: vtt
             }
             $scope.history.push(temp_history)
-		$http.post("http://10.10.100.239:3000/voiceText", data).success(function(data, status) {
+		$http.post('http://10.10.100.239:3000/voiceText', 
+		  {
+		    headers: {'Content-Type': 'application/json'},
+		    data: data
+		  }
+		).success(function(data, status) {
             console.log(data)
 
         })
